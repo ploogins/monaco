@@ -12,7 +12,7 @@ module.exports = class Settings extends React.Component {
     this.valueGetter = React.createRef();
     this.editor = React.createRef();
     this.handleEditorDidMount = this.handleEditorDidMount.bind(this);
-    this._handleMonacoUpdate = global._.debounce(this._handleMonacoUpdate.bind(this), 300);
+    this._handleMonacoUpdate = global._.debounce(this._handleMonacoUpdate.bind(this), 1000);
   }
 
   handleEditorDidMount (_valueGetter, _editor) {
