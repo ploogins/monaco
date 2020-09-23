@@ -1,7 +1,11 @@
 
+.quickcss-monaco-container{
+  z-index: 999999999999999998;
+}
+
 .quickcss-monaco-close{
   position: absolute;
-  z-index: 99999;
+  z-index: 999999999999999999;
   right: 13vw;
-  top: 20px;
+  top: 35px;
 }

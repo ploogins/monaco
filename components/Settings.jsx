@@ -34,20 +34,22 @@ module.exports = class Settings extends React.Component {
   render () {
     return (
       <>
+        <div className="quickcss-monaco-container">
+          <Editor
+            height="100vh"
+            width="100%"
+            className="quickcss-monaco"
+            language="css"
+            value={powercord.pluginManager.get('pc-moduleManager')._quickCSS}
+            editorDidMount={this.handleEditorDidMount}
+            theme="vs-dark"
+          />
+        </div>
         <div className='quickcss-monaco-close'>
           <Close
             closeAction={this.onClose}
           />
         </div>
-        <Editor
-          height="100vh"
-          width="100vw"
-          className="quickcss-monaco"
-          language="css"
-          value={powercord.pluginManager.get('pc-moduleManager')._quickCSS}
-          editorDidMount={this.handleEditorDidMount}
-          theme="vs-dark"
-        />
       </>
     );
   }
