@@ -1,8 +1,7 @@
-
-
 const { React } = require('powercord/webpack');
 const Editor = require('../node_modules/@monaco-editor/react').default;
-
+const { getModuleByDisplayName, getModule } = require('powercord/webpack');
+const Close = getModuleByDisplayName('CloseIconWithKeybind', false);
 module.exports = class Settings extends React.Component {
   constructor (props) {
     super(props);
@@ -13,6 +12,10 @@ module.exports = class Settings extends React.Component {
     this.editor = React.createRef();
     this.handleEditorDidMount = this.handleEditorDidMount.bind(this);
     this._handleMonacoUpdate = global._.debounce(this._handleMonacoUpdate.bind(this), 1000);
+  }
+
+  onClose () {
+    getModule([ 'popLayer' ], false).popLayer();
   }
 
   handleEditorDidMount (_valueGetter, _editor) {
@@ -31,9 +34,14 @@ module.exports = class Settings extends React.Component {
   render () {
     return (
       <>
+        <div className='quickcss-monaco-close'>
+          <Close
+            closeAction={this.onClose}
+          />
+        </div>
         <Editor
-          height="80vh"
-          width="1000px"
+          height="100vh"
+          width="100vw"
           className="quickcss-monaco"
           language="css"
           value={powercord.pluginManager.get('pc-moduleManager')._quickCSS}

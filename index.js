@@ -1,6 +1,6 @@
 
 const { Plugin } = require('powercord/entities');
-const Settings = require('./components/Settings');
+const Settings = require('./components/SettingsLoader');
 
 module.exports = class Monaco extends Plugin {
   async startPlugin () {

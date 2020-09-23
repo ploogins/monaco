@@ -1,4 +1,7 @@
 
-.quickcss-monaco {
-  padding-top: 30px;
+.quickcss-monaco-close{
+  position: absolute;
+  z-index: 99999;
+  right: 13vw;
+  top: 20px;
 }
