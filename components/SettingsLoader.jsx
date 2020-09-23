@@ -6,7 +6,7 @@ module.exports = class Settings extends React.Component {
     popLayer();
     setTimeout(() => {
       pushLayer(SettingsLayer);
-    }, 100);
+    }, 200);
     return (
       <>
       </>
