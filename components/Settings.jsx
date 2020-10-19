@@ -1,7 +1,6 @@
 const { React } = require('powercord/webpack');
 const Editor = require('../node_modules/@monaco-editor/react').default;
-const { getModuleByDisplayName, getModule } = require('powercord/webpack');
-const Close = getModuleByDisplayName('CloseIconWithKeybind', false);
+const { getModule } = require('powercord/webpack');
 const { Spinner } = require('powercord/components');
 module.exports = class Settings extends React.Component {
   constructor (props) {
@@ -32,26 +31,27 @@ module.exports = class Settings extends React.Component {
     powercord.pluginManager.get('pc-moduleManager')._saveQuickCSS(value);
   }
 
+  async componentWillMount () {
+    document.querySelector('.standardSidebarView-3F1I7i').classList.add('monaco');
+  }
+
+  async componentWillUnmount () {
+    document.querySelector('.standardSidebarView-3F1I7i').classList.remove('monaco');
+  }
+
   render () {
     return (
       <>
         <div className="quickcss-monaco-container">
           <Editor
-            height="100vh"
+            height="90vh"
             width="100%"
             className="quickcss-monaco"
             language="css"
             value={powercord.pluginManager.get('pc-moduleManager')._quickCSS}
             editorDidMount={this.handleEditorDidMount}
             theme="vs-dark"
-            loading={<Spinner
-              type = "spinning-circle"
-            />}
-          />
-        </div>
-        <div className='quickcss-monaco-close'>
-          <Close
-            closeAction={this.onClose}
+            loading={<Spinner/>}
           />
         </div>
       </>
