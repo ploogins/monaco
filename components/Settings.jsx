@@ -2,6 +2,7 @@ const { React } = require('powercord/webpack');
 const Editor = require('../node_modules/@monaco-editor/react').default;
 const { getModule } = require('powercord/webpack');
 const { Spinner } = require('powercord/components');
+const { SwitchItem } = require('powercord/components/settings');
 module.exports = class Settings extends React.Component {
   constructor (props) {
     super(props);
@@ -32,7 +33,9 @@ module.exports = class Settings extends React.Component {
   }
 
   async componentWillMount () {
-    document.querySelector('.standardSidebarView-3F1I7i').classList.add('monaco');
+    if (this.props.getSetting('collapseSidebar', false)) {
+      document.querySelector('.standardSidebarView-3F1I7i').classList.add('monaco');
+    }
   }
 
   async componentWillUnmount () {
@@ -40,6 +43,7 @@ module.exports = class Settings extends React.Component {
   }
 
   render () {
+    const { getSetting, toggleSetting } = this.props;
     return (
       <>
         <div className="quickcss-monaco-container">
@@ -54,6 +58,10 @@ module.exports = class Settings extends React.Component {
             loading={<Spinner/>}
           />
         </div>
+        <SwitchItem style = {{ paddingTop: '50px' }}note='Wether to collapse the settings sidebar. Useful for small screens.'
+          value={getSetting('collapseSidebar', false)}
+          onChange={() => toggleSetting('collapseSidebar')}
+        >Collapse Sidebar</SwitchItem>
       </>
     );
   }
