@@ -1,41 +1,58 @@
 const { React } = require('powercord/webpack');
-const Editor = require('../node_modules/@monaco-editor/react').default;
+const cs = require('../stuf');
 const { getModule } = require('powercord/webpack');
 const { Spinner } = require('powercord/components');
 module.exports = class Settings extends React.Component {
   constructor (props) {
     super(props);
+    /*
+     * this.state = {
+     *   isEditorReady: false
+     * };
+     * this.valueGetter = React.createRef();
+     * this.editor = React.createRef();
+     * this.handleEditorDidMount = this.handleEditorDidMount.bind(this);
+     * this._handleMonacoUpdate = global._.debounce(this._handleMonacoUpdate.bind(this), 1000);
+     */
     this.state = {
-      isEditorReady: false
+      loading: true
     };
-    this.valueGetter = React.createRef();
-    this.editor = React.createRef();
-    this.handleEditorDidMount = this.handleEditorDidMount.bind(this);
-    this._handleMonacoUpdate = global._.debounce(this._handleMonacoUpdate.bind(this), 1000);
   }
 
-  onClose () {
-    getModule([ 'popLayer' ], false).popLayer();
-  }
+  /*
+   * onClose () {
+   *   getModule([ 'popLayer' ], false).popLayer();
+   * }
+   */
 
-  handleEditorDidMount (_valueGetter, _editor) {
-    this.state.isEditorReady = true;
-    this.valueGetter.current = _valueGetter;
-    this.editor = _editor;
-    this.editor.onDidChangeModelContent(ev => {
-      this._handleMonacoUpdate(ev, this.valueGetter.current());
-    });
-  }
+  /*
+   * handleEditorDidMount (_valueGetter, _editor) {
+   *   this.state.isEditorReady = true;
+   *   this.valueGetter.current = _valueGetter;
+   *   this.editor = _editor;
+   *   this.editor.onDidChangeModelContent(ev => {
+   *     this._handleMonacoUpdate(ev, this.valueGetter.current());
+   *   });
+   * }
+   */
 
-  _handleMonacoUpdate (ev, value) {
-    powercord.pluginManager.get('pc-moduleManager')._saveQuickCSS(value);
-  }
+  /*
+   * _handleMonacoUpdate (ev, value) {
+   *   powercord.pluginManager.get('pc-moduleManager')._saveQuickCSS(value);
+   * }
+   */
 
   async componentWillMount () {
+    cs.start();
+    setTimeout(() => {
+      this.setState({ loading: false });
+      cs.open(powercord.pluginManager.get('pc-moduleManager')._quickCSSFile);
+    }, 1000);
     document.querySelector('.standardSidebarView-3F1I7i').classList.add('monaco');
   }
 
   async componentWillUnmount () {
+    cs.stop();
     document.querySelector('.standardSidebarView-3F1I7i').classList.remove('monaco');
   }
 
@@ -43,7 +60,7 @@ module.exports = class Settings extends React.Component {
     return (
       <>
         <div className="quickcss-monaco-container">
-          <Editor
+          {/* <Editor
             height="90vh"
             width="100%"
             className="quickcss-monaco"
@@ -52,7 +69,16 @@ module.exports = class Settings extends React.Component {
             editorDidMount={this.handleEditorDidMount}
             theme="vs-dark"
             loading={<Spinner/>}
-          />
+          /> */}
+          {this.state.loading
+            ? <Spinner/>
+            : <iframe src='http://localhost:3512'
+              style = {{
+                height: '90vh',
+                width: '100%'
+              }}
+            />
+          }
         </div>
       </>
     );
