@@ -9,7 +9,7 @@ module.exports = class Monaco extends Plugin {
     this.loadStylesheet('style.scss');
     powercord.api.settings.registerSettings('quickcss-monaco', {
       category: this.entityID,
-      label: 'QuickCSS',
+      label: 'PowerCode',
       render: Settings
     });
   }
