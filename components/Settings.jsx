@@ -48,7 +48,9 @@ module.exports = class Settings extends React.Component {
       this.setState({ loading: false });
       cs.open(powercord.pluginManager.get('pc-moduleManager')._quickCSSFile);
     }, 1000);
-    document.querySelector('.standardSidebarView-3F1I7i').classList.add('monaco');
+    if (this.props.getSetting('collapseSidebar', false)) {
+      document.querySelector('.standardSidebarView-3F1I7i').classList.add('monaco');
+    }
   }
 
   async componentWillUnmount () {
@@ -57,6 +59,7 @@ module.exports = class Settings extends React.Component {
   }
 
   render () {
+    const { getSetting, toggleSetting } = this.props;
     return (
       <>
         <div className="quickcss-monaco-container">
@@ -79,6 +82,10 @@ module.exports = class Settings extends React.Component {
               }}
             />
           }
+          <SwitchItem style = {{ paddingTop: '50px' }}note='Wether to collapse the settings sidebar. Useful for small screens.'
+            value={getSetting('collapseSidebar', false)}
+            onChange={() => toggleSetting('collapseSidebar')}
+          >Collapse Sidebar</SwitchItem>
         </div>
       </>
     );
