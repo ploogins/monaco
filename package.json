@@ -1,0 +1,11 @@
+{
+  "name": "monaco-powercord",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/ploogins/monaco",
+  "author": "AA <aa@bigdumb.gq>",
+  "license": "MIT",
+  "dependencies": {
+    "code-server": "^3.6.0"
+  }
+}
