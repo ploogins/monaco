@@ -44,11 +44,9 @@ module.exports = class Settings extends React.Component {
    */
 
   async componentWillMount () {
-    cs.start();
-    setTimeout(() => {
-      this.setState({ loading: false });
-      cs.open(powercord.pluginManager.get('pc-moduleManager')._quickCSSFile);
-    }, 1000);
+    await cs.start();
+    this.setState({ loading: false });
+    cs.open(powercord.pluginManager.get('pc-moduleManager')._quickCSSFile);
     if (this.props.getSetting('collapseSidebar', false)) {
       document.querySelector('.standardSidebarView-3F1I7i').classList.add('monaco');
     }
