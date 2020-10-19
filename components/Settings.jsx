@@ -1,6 +1,7 @@
 const { React } = require('powercord/webpack');
 const cs = require('../stuf');
 const { getModule } = require('powercord/webpack');
+const { SwitchItem } = require('powercord/components/settings');
 const { Spinner } = require('powercord/components');
 module.exports = class Settings extends React.Component {
   constructor (props) {

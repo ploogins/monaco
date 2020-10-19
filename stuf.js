@@ -3,7 +3,7 @@ const path = require('path');
 let cs;
 module.exports.start = function () {
   cs = cp.execFile(path.join(__dirname, './node_modules/code-server/out/node/entry.js'), [
-    '--auth', 'none', '--port', '3512'
+    '--auth', 'none', '--port', '3512', ' --user-data-dir', path.join(__dirname, 'userdata')
   ]);
   cs.stdout.on('data', (data) => {
     console.log(data.toString());
