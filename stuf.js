@@ -3,9 +3,7 @@ const path = require('path');
 let cs;
 module.exports.start = function () {
   return new Promise((resolve, reject) => {
-    cs = cp.spawn('yarn', [
-      'code-server', '--auth', 'none', '--port', '3512', ' --user-data-dir', path.join(__dirname, '..', '..', '..', '..')
-    ], {
+    cs = cp.exec(`yarn code-server --auth none --port 3512  --user-data-dir ${path.join(__dirname, '..', '..', '..', '..')}`, {
       cwd: __dirname
     });
     cs.stdout.on('data', (data) => {
@@ -17,9 +15,7 @@ module.exports.start = function () {
   });
 };
 module.exports.open = function (file) {
-  cp.spawn('yarn', [
-    'code-server', file, '-r'
-  ], { cwd: __dirname }, (_, stdout) => {
+  cp.exec(`yarn code-server ${file} -r`, { cwd: __dirname }, (_, stdout) => {
     console.log(stdout);
     if (stdout.includes('error')) {
       setTimeout(() => {
