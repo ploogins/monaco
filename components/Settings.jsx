@@ -1,5 +1,5 @@
 const { React } = require('powercord/webpack');
-const Editor = require('../node_modules/@monaco-editor/react').default;
+const Editor = require('@monaco-editor/react').default;
 const { getModule } = require('powercord/webpack');
 const { Spinner } = require('powercord/components');
 const { SwitchItem } = require('powercord/components/settings');
